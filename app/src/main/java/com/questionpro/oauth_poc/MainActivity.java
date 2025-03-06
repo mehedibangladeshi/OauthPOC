@@ -1,4 +1,10 @@
 package com.questionpro.oauth_poc;
+import static com.questionpro.oauth_poc.Credentials.AUTH0_ENDPOINT_GET_USER_LIST;
+import static com.questionpro.oauth_poc.Credentials.AUTH0_CLIENT_BASE_URL;
+import static com.questionpro.oauth_poc.Credentials.AUTH0_CLIENT_ID;
+import static com.questionpro.oauth_poc.Credentials.AUTH0_CLIENT_SECRET;
+import static com.questionpro.oauth_poc.Credentials.AUTH0_TOKEN_URL;
+
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,17 +21,15 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
+
+
 public class MainActivity extends AppCompatActivity {
 
     private TextView resultTextView;
-    private static final String TAG = "MainActivity";
-    private static final String AUTH0_DOMAIN = "dev-udw0cpbqzi4xqeq2.us.auth0.com";
-    private static final String AUTH0_CLIENT_ID = "IzH7kdGPAQmfgQ8ynA1QlswU6zfml307";
-    private static final String AUTH0_CLIENT_SECRET = "uX_eJPfxdbdfh7B55zVgiMPZ-NRK_8ltZ3O6o8wMu3BMLg5Z3FnNMXfUQ9dSWJOs";
-    private static final String AUTH0_TOKEN_URL = "https://" + AUTH0_DOMAIN + "/oauth/token";
-    private static final String AUTH0_AUDIENCE = "https://dev-udw0cpbqzi4xqeq2.us.auth0.com/api/v2/";
-    private static final String AUTH0_API_URL = "https://dev-udw0cpbqzi4xqeq2.us.auth0.com/api/v2/users";
-@Override
+    public static final String TAG = "MainActivity";
+
+
+    @Override
 protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
@@ -50,7 +54,7 @@ private class GetAccessTokenTask extends AsyncTask<Void, Void, String> {
         MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
         RequestBody body = RequestBody.create(mediaType, "grant_type=client_credentials&client_id=" + AUTH0_CLIENT_ID
                 + "&client_secret=" + AUTH0_CLIENT_SECRET
-                + "&audience=" + AUTH0_AUDIENCE);
+                + "&audience=" + AUTH0_CLIENT_BASE_URL);
         Request request = new Request.Builder()
                 .url(AUTH0_TOKEN_URL)
                 .post(body)
@@ -99,7 +103,7 @@ private class CallApiTask extends AsyncTask<Void, Void, String> {
         OkHttpClient client = new OkHttpClient();
 
         Request request = new Request.Builder()
-                .url(AUTH0_API_URL)
+                .url(AUTH0_CLIENT_BASE_URL + AUTH0_ENDPOINT_GET_USER_LIST)
                 .addHeader("Authorization", "Bearer " + accessToken)
                 .build();
 

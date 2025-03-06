@@ -15,11 +15,5 @@
 local.properties
 
 
-https://authorization-server.com/authorize?
-  response_type=code
-  &client_id=qp4U5Iq-kNDhzjd1opfS35iv
-  &redirect_uri=https://www.oauth.com/playground/oidc.html
-  &scope=openid+profile+email+photos
-  &state=0Vun655kLOQg1g1o
-  &nonce=P25imZVpXYhyYlEW
+
 
