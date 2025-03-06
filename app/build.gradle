@@ -13,6 +13,12 @@ android {
         versionCode 1
         versionName "1.0"
 
+
+        // Define the placeholder value here:
+        manifestPlaceholders = [
+                appAuthRedirectScheme: "com.questionpro.oauth_poc"
+        ]
+
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -44,5 +50,8 @@ dependencies {
     androidTestImplementation libs.espresso.core
     implementation libs.play.services.auth
     implementation libs.glide
+    implementation libs.appauth
+    implementation(libs.okhttp)
+
 
 }
